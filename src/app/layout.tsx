@@ -13,8 +13,20 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Feito de Nós — Personalize seu Presente",
-  description: "Crie e visualize seus presentes personalizados com adesivo DTF UV em tempo real. Canecas, copos, garrafas e kits exclusivos.",
+  title: "Montuá | Presentes personalizados do seu jeito",
+  description:
+    "Crie presentes personalizados com fotos, nomes, frases e artes. Monte do seu jeito, visualize como ficará e faça seu pedido pela Montuá.",
+  icons: {
+    icon: "/favicon.svg",
+  },
+  openGraph: {
+    title: "Montuá | Presentes personalizados do seu jeito",
+    description:
+      "Crie presentes personalizados com fotos, nomes, frases e artes. Monte do seu jeito, visualize como ficará e faça seu pedido pela Montuá.",
+    siteName: "Montuá Presentes",
+    locale: "pt_BR",
+    type: "website",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -804,13 +804,13 @@ export default function AdminPage() {
           <div>
             <div className="flex items-center gap-2">
               <span className="font-bold text-[#C25E48] text-sm tracking-wider uppercase font-serif">
-                Feito de Nós
+                Montuá
               </span>
               <span className="text-stone-600">|</span>
-              <h1 className="font-bold text-white text-base">Painel de Gestão & Produção</h1>
+              <h1 className="font-bold text-white text-base">Painel de Gestão</h1>
             </div>
             <p className="text-xs text-stone-400 hidden sm:block">
-              Controle de pedidos, engenharia de superfícies DTF UV e catálogo de artes
+              Controle de pedidos, engenharia de produção DTF UV e catálogo de artes
             </p>
           </div>
         </div>

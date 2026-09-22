@@ -1,5 +1,5 @@
 -- ==============================================================================
--- FEITO DE NÓS — MIGRATION 001_INITIAL_SCHEMA.SQL (PRODUÇÃO COMERCIAL DTF UV)
+-- MONTUÁ PRESENTES — MIGRATION 001_INITIAL_SCHEMA.SQL (PRODUÇÃO COMERCIAL)
 -- Idempotente: seguro para execução em bases virgens ou bases pré-existentes.
 -- ==============================================================================
 

@@ -149,7 +149,7 @@ export const OrderModal: React.FC<OrderModalProps> = ({
 
     const formattedTotal = confirmedOrder.item.totalPrice.toFixed(2).replace('.', ',');
     const messageLines = [
-      `Olá! Fiz uma personalização pelo site Feito de Nós.`,
+      `Olá! Acabei de criar um presente personalizado pelo site da Montuá.`,
       ``,
       `Pedido: ${confirmedOrder.orderNumber}`,
       `Produto: ${confirmedOrder.item.productName}`,
@@ -185,11 +185,14 @@ export const OrderModal: React.FC<OrderModalProps> = ({
               <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full uppercase tracking-wider border border-emerald-200">
                 Pedido recebido com sucesso
               </span>
-              <h3 className="text-2xl font-bold text-slate-900 mt-2">
-                Obrigado, {confirmedOrder.customer.name}!
+              <h3 className="text-2xl font-bold text-slate-900 mt-2 font-serif">
+                Pedido recebido!
               </h3>
-              <p className="text-sm text-slate-600 max-w-md mx-auto">
-                Sua personalização foi salva no sistema com medidas físicas calibradas para a produção DTF UV.
+              <p className="text-base font-semibold text-[#C25E48]">
+                Agora sua criação está com a Montuá.
+              </p>
+              <p className="text-xs text-slate-500 max-w-md mx-auto">
+                Salvamos sua personalização com máxima precisão milimétrica para nossa equipe produzir com carinho.
               </p>
             </div>
 
@@ -280,12 +283,15 @@ export const OrderModal: React.FC<OrderModalProps> = ({
             {/* Header */}
             <div className="flex items-center justify-between p-6 border-b border-slate-100 bg-slate-50/50">
               <div>
-                <span className="text-xs font-semibold text-rose-600 uppercase tracking-wider flex items-center gap-1.5">
-                  <Sparkles className="w-3.5 h-3.5" /> Revisão do seu presente
+                <span className="text-xs font-semibold text-[#C25E48] uppercase tracking-wider flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5" /> Seu presente está quase pronto
                 </span>
                 <h3 className="text-xl font-bold text-slate-900 mt-0.5">
-                  {product.name} — {selectedColor.name}
+                  Confira os detalhes da sua criação antes de finalizar.
                 </h3>
+                <p className="text-xs text-slate-500 mt-0.5">
+                  {product.name} — {selectedColor.name}
+                </p>
               </div>
               <button
                 type="button"

@@ -118,14 +118,14 @@ export default function MugConfiguratorPage() {
 
             <div>
               <div className="flex items-center gap-2">
-                <span className="font-black text-rose-600 text-sm tracking-tight">FEITO DE NÓS</span>
+                <span className="font-black text-[#C25E48] text-sm tracking-tight font-serif">MONTUÁ</span>
                 <span className="text-slate-300">|</span>
                 <h1 className="font-semibold text-slate-900 text-sm sm:text-base truncate max-w-[200px] sm:max-w-none">
                   {product.name}
                 </h1>
               </div>
               <p className="text-[11px] text-slate-400 hidden sm:block">
-                Configurador Visual DTF UV — Superfície: <strong className="text-slate-700">{activeSurface.name}</strong>
+                Crie seu presente — Personalize cada detalhe do seu jeito. Superfície: <strong className="text-slate-700">{activeSurface.name}</strong>
               </p>
             </div>
           </div>

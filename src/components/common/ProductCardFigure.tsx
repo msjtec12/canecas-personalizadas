@@ -69,7 +69,7 @@ export const ProductCardFigure: React.FC<ProductCardFigureProps> = ({ slug, clas
             <circle cx="30" cy="30" r="28" fill="none" stroke="url(#goldSample)" stroke-width="2.5" stroke-dasharray="3,3" />
             <path d="M30 18 C22 18 18 25 30 35 C42 25 38 18 30 18 Z" fill="#C25E48" />
             <text x="30" y="46" font-size="7" font-family="'Montserrat', sans-serif" font-weight="700" fill="#1C1917" text-anchor="middle" letter-spacing="1">
-              FEITO DE NÓS
+              MONTUÁ
             </text>
           </g>
         </svg>

@@ -35,7 +35,7 @@ export function generateCalibrationSheetBlob(): Promise<{ blob: Blob; fileName: 
       // 1. Cabeçalho
       ctx.fillStyle = '#1C1917';
       ctx.font = `bold ${mmToPx(6)}px "Inter", sans-serif`;
-      ctx.fillText('FEITO DE NÓS — FOLHA DE CALIBRAÇÃO DTF UV', margin, margin + mmToPx(6));
+      ctx.fillText('MONTUÁ — FOLHA DE CALIBRAÇÃO DTF UV', margin, margin + mmToPx(6));
 
       ctx.fillStyle = '#C25E48';
       ctx.font = `bold ${mmToPx(3.8)}px "Inter", sans-serif`;

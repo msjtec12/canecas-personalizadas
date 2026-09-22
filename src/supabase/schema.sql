@@ -1,5 +1,5 @@
 -- ==============================================================================
--- FEITO DE NÓS — SCHEMA POSTGRESQL / SUPABASE (PRODUÇÃO COMERCIAL DTF UV)
+-- MONTUÁ PRESENTES — SCHEMA POSTGRESQL / SUPABASE (PRODUÇÃO COMERCIAL)
 -- ==============================================================================
 
 -- 1. Habilitar extensão UUID

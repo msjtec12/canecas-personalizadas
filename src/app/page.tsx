@@ -8,14 +8,13 @@ import {
   Eye,
   CheckCircle2,
   Clock,
-  Flame,
   Star,
-  Gift,
-  Layers,
   Sparkle,
 } from 'lucide-react';
 import { PRODUCTS_CATALOG } from '@/data/products';
 import { ProductCardFigure } from '@/components/common/ProductCardFigure';
+import { BrandLogo } from '@/components/common/BrandLogo';
+import { brand } from '@/config/brand';
 
 export default function HomePage() {
   return (
@@ -23,25 +22,13 @@ export default function HomePage() {
       {/* 1. TOP ANNOUNCEMENT BAR */}
       <div className="bg-[#1C1917] text-white/90 text-center py-2 px-4 text-xs font-medium tracking-wide flex items-center justify-center gap-2">
         <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-        <span>Personalização profissional com acabamento nobre em adesivo DTF UV em alto relevo</span>
+        <span>Personalização feita para você • Monte cada detalhe • Veja antes de pedir</span>
       </div>
 
       {/* 2. HEADER / NAVBAR */}
       <header className="sticky top-0 z-40 bg-[#FAF8F5]/90 backdrop-blur-md border-b border-[#E7E5E4]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 sm:h-20 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-[#C25E48] flex items-center justify-center text-white shadow-sm shadow-[#C25E48]/30">
-              <Gift className="w-5 h-5" />
-            </div>
-            <div>
-              <span className="text-lg sm:text-xl font-black tracking-tight text-[#1C1917] block leading-tight font-serif">
-                Feito de Nós
-              </span>
-              <span className="text-[10px] tracking-widest uppercase font-semibold text-[#C25E48] block">
-                Ateliê de Presentes
-              </span>
-            </div>
-          </div>
+          <BrandLogo />
 
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-stone-600">
             <a href="#como-funciona" className="hover:text-[#C25E48] transition-colors">
@@ -51,7 +38,7 @@ export default function HomePage() {
               Produtos
             </a>
             <a href="#diferenciais" className="hover:text-[#C25E48] transition-colors">
-              Tecnologia DTF UV
+              Qualidade
             </a>
             <Link
               href="/admin"
@@ -65,7 +52,7 @@ export default function HomePage() {
             href="/personalizar/caneca"
             className="px-5 py-2.5 sm:py-3 bg-[#C25E48] hover:bg-[#A94A36] text-white font-semibold text-xs sm:text-sm rounded-xl shadow-md shadow-[#C25E48]/20 active:scale-[0.98] transition-all flex items-center gap-2"
           >
-            <span>Personalizar Caneca</span>
+            <span>Criar meu presente</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
@@ -79,18 +66,18 @@ export default function HomePage() {
             <div className="lg:col-span-7 text-center lg:text-left space-y-6">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-stone-100 border border-stone-200 text-stone-700 text-xs font-semibold">
                 <Sparkle className="w-3.5 h-3.5 text-[#C25E48]" />
-                <span>Configurador Visual Interativo em Tempo Real</span>
+                <span>{brand.hero.badge}</span>
               </div>
 
               <h1 className="text-4xl sm:text-6xl font-black text-stone-900 tracking-tight leading-[1.1] font-serif">
-                Crie um presente que é{' '}
-                <span className="text-[#C25E48] italic font-serif">
-                  só seu.
+                Você imagina. Você monta.{' '}
+                <span className="text-[#C25E48] italic font-serif block sm:inline">
+                  A gente faz.
                 </span>
               </h1>
 
               <p className="text-base sm:text-lg text-stone-600 max-w-xl leading-relaxed">
-                Monte seu presente do seu jeito. Escolha o produto, personalize com fotos, nomes e mensagens e veja exatamente como ele ficará antes de pedir.
+                {brand.hero.subheadline}
               </p>
 
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
@@ -98,31 +85,31 @@ export default function HomePage() {
                   href="/personalizar/caneca"
                   className="w-full sm:w-auto px-8 py-4 bg-[#C25E48] hover:bg-[#A94A36] text-white font-bold text-base rounded-xl shadow-lg shadow-[#C25E48]/25 active:scale-[0.98] transition-all flex items-center justify-center gap-3 group"
                 >
-                  <span>Montar meu presente</span>
+                  <span>{brand.hero.ctaPrimary}</span>
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </Link>
 
                 <a
-                  href="#como-funciona"
+                  href="#produtos"
                   className="w-full sm:w-auto px-6 py-4 bg-white hover:bg-stone-50 text-stone-700 font-semibold text-base rounded-xl border border-stone-200 shadow-xs transition-colors flex items-center justify-center"
                 >
-                  Ver como funciona
+                  {brand.hero.ctaSecondary}
                 </a>
               </div>
 
               {/* Guarantees */}
               <div className="pt-6 border-t border-stone-200/80 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-xs text-stone-500 font-medium">
                 <div className="flex items-center gap-2">
-                  <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                  <span>Adesivo DTF UV Alta Fixação</span>
+                  <Eye className="w-4 h-4 text-[#C25E48]" />
+                  <span>Veja antes de pedir</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Eye className="w-4 h-4 text-[#C25E48]" />
-                  <span>Preview Realista das 4 Superfícies</span>
+                  <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                  <span>Monte cada detalhe em tempo real</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Heart className="w-4 h-4 text-rose-500" />
-                  <span>Acabamento Artesanal de Ateliê</span>
+                  <span>Personalização feita para você</span>
                 </div>
               </div>
             </div>
@@ -132,7 +119,7 @@ export default function HomePage() {
               <div className="relative w-full max-w-md bg-white rounded-3xl p-6 sm:p-8 shadow-xl shadow-stone-200/60 border border-stone-200/80">
                 {/* Ribbon Tag */}
                 <div className="absolute -top-3 right-6 bg-[#1C1917] text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-sm tracking-wide">
-                  PERSONALIZAÇÃO EXCLUSIVA
+                  CRIE DO SEU JEITO
                 </div>
 
                 <div className="aspect-[4/3] rounded-2xl bg-gradient-to-b from-[#F9F7F4] to-[#F0EDE6] border border-stone-100 flex items-center justify-center overflow-hidden mb-5">
@@ -143,7 +130,7 @@ export default function HomePage() {
                   <div className="flex items-center justify-between">
                     <div>
                       <h3 className="font-bold text-stone-900 text-base">Caneca Cerâmica 325ml</h3>
-                      <p className="text-xs text-stone-500">Impressão direta em relevo DTF UV</p>
+                      <p className="text-xs text-stone-500">Personalize frente, verso, alça e fundo</p>
                     </div>
                     <span className="text-lg font-black text-[#C25E48]">R$ 29,90</span>
                   </div>
@@ -181,7 +168,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4. COMO FUNCIONA */}
+      {/* 4. COMO FUNCIONA (5 ETAPAS) */}
       <section id="como-funciona" className="py-20 bg-white border-b border-[#E7E5E4]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-16">
@@ -189,53 +176,41 @@ export default function HomePage() {
               Passo a Passo
             </span>
             <h2 className="text-3xl sm:text-4xl font-black text-stone-900 tracking-tight font-serif">
-              Como funciona?
+              {brand.howItWorks.sectionTitle}
             </h2>
             <p className="mt-3 text-stone-600 text-sm sm:text-base">
-              Sem formulários burocráticos. Você experimenta as artes na peça em tempo real.
+              {brand.howItWorks.sectionSubtitle}
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-            <div className="bg-[#FAF8F5] rounded-3xl p-6 border border-stone-200/80 hover:border-[#C25E48]/50 transition-colors">
-              <div className="w-12 h-12 rounded-2xl bg-[#C25E48] text-white font-bold text-lg flex items-center justify-center mb-4 shadow-sm shadow-[#C25E48]/20">
-                1
-              </div>
-              <h3 className="font-bold text-stone-900 text-base mb-2">Escolha o produto</h3>
-              <p className="text-xs text-stone-500 leading-relaxed">
-                Selecione a caneca e sua cor (branca, preta, vermelha, azul ou rosa).
-              </p>
-            </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+            {brand.howItWorks.steps.map((step) => {
+              const bgColors = [
+                'bg-[#C25E48]',
+                'bg-amber-600',
+                'bg-stone-800',
+                'bg-[#C25E48]',
+                'bg-emerald-700',
+              ];
+              const colorClass = bgColors[(step.number - 1) % bgColors.length];
 
-            <div className="bg-[#FAF8F5] rounded-3xl p-6 border border-stone-200/80 hover:border-[#C25E48]/50 transition-colors">
-              <div className="w-12 h-12 rounded-2xl bg-amber-600 text-white font-bold text-lg flex items-center justify-center mb-4 shadow-sm shadow-amber-600/20">
-                2
-              </div>
-              <h3 className="font-bold text-stone-900 text-base mb-2">Personalize</h3>
-              <p className="text-xs text-stone-500 leading-relaxed">
-                Insira textos com tipografias de ateliê, envie suas fotos ou escolha ilustrações prontas.
-              </p>
-            </div>
-
-            <div className="bg-[#FAF8F5] rounded-3xl p-6 border border-stone-200/80 hover:border-[#C25E48]/50 transition-colors">
-              <div className="w-12 h-12 rounded-2xl bg-stone-800 text-white font-bold text-lg flex items-center justify-center mb-4 shadow-sm shadow-stone-800/20">
-                3
-              </div>
-              <h3 className="font-bold text-stone-900 text-base mb-2">Veja como ficará</h3>
-              <p className="text-xs text-stone-500 leading-relaxed">
-                Gire o produto e visualize frente, verso, alça e fundo em proporção exata.
-              </p>
-            </div>
-
-            <div className="bg-[#FAF8F5] rounded-3xl p-6 border border-stone-200/80 hover:border-[#C25E48]/50 transition-colors">
-              <div className="w-12 h-12 rounded-2xl bg-emerald-700 text-white font-bold text-lg flex items-center justify-center mb-4 shadow-sm shadow-emerald-700/20">
-                4
-              </div>
-              <h3 className="font-bold text-stone-900 text-base mb-2">Finalize seu pedido</h3>
-              <p className="text-xs text-stone-500 leading-relaxed">
-                Conclua via WhatsApp com a ficha completa e receba seu presente perfeito.
-              </p>
-            </div>
+              return (
+                <div
+                  key={step.number}
+                  className="bg-[#FAF8F5] rounded-3xl p-6 border border-stone-200/80 hover:border-[#C25E48]/50 transition-colors flex flex-col justify-between"
+                >
+                  <div>
+                    <div
+                      className={`w-12 h-12 rounded-2xl ${colorClass} text-white font-bold text-lg flex items-center justify-center mb-4 shadow-sm`}
+                    >
+                      {step.number}
+                    </div>
+                    <h3 className="font-bold text-stone-900 text-base mb-2">{step.title}</h3>
+                    <p className="text-xs text-stone-600 leading-relaxed">{step.description}</p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -251,7 +226,7 @@ export default function HomePage() {
               Escolha a base para criar
             </h2>
             <p className="mt-3 text-stone-600 text-sm sm:text-base">
-              Produtos nobres preparados para receber adesivos DTF UV de alta durabilidade.
+              Presentes nobres preparados para receber a sua personalização exclusiva.
             </p>
           </div>
 
@@ -327,13 +302,13 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 6. DIFERENCIAL DTF UV */}
+      {/* 6. DIFERENCIAL DE QUALIDADE */}
       <section id="diferenciais" className="py-20 bg-white border-y border-[#E7E5E4]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-6 space-y-6">
               <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-semibold">
-                <Flame className="w-3.5 h-3.5 text-amber-700" /> Tecnologia Premium DTF UV
+                <Sparkles className="w-3.5 h-3.5 text-amber-700" /> Qualidade de Produção
               </div>
 
               <h2 className="text-3xl sm:text-4xl font-black text-stone-900 tracking-tight leading-tight font-serif">
@@ -342,7 +317,7 @@ export default function HomePage() {
               </h2>
 
               <p className="text-stone-600 text-sm sm:text-base leading-relaxed">
-                Diferente de estampas tradicionais que desbotam ou craquelam, os adesivos DTF UV proporcionam relevo tátil sofisticado, cores fiéis e verniz protetor ultrabrilhante.
+                Cada presente é produzido com materiais nobres, acabamento em relevo tátil sofisticado e verniz protetor ultrabrilhante para durar uma vida inteira.
               </p>
 
               <div className="space-y-4 pt-2">
@@ -353,7 +328,7 @@ export default function HomePage() {
                   <div>
                     <h4 className="font-bold text-stone-900 text-sm">Toque em Relevo Acetinado</h4>
                     <p className="text-xs text-stone-500">
-                      Verniz UV multicamada com textura sensorial perceptível ao passar a mão.
+                      Verniz protetor multicamada com textura sensorial agradável e perceptível ao toque.
                     </p>
                   </div>
                 </div>
@@ -363,9 +338,9 @@ export default function HomePage() {
                     ✓
                   </div>
                   <div>
-                    <h4 className="font-bold text-stone-900 text-sm">Alta Resistência a Lavagens</h4>
+                    <h4 className="font-bold text-stone-900 text-sm">Alta Durabilidade</h4>
                     <p className="text-xs text-stone-500">
-                      Cura ultravioleta com cola de alta aderência que suporta água fria e uso cotidiano.
+                      Fixação de alta resistência que suporta lavagens diárias e uso cotidiano com segurança.
                     </p>
                   </div>
                 </div>
@@ -377,7 +352,7 @@ export default function HomePage() {
                   <div>
                     <h4 className="font-bold text-stone-900 text-sm">Cores Vibrantes em Qualquer Base</h4>
                     <p className="text-xs text-stone-500">
-                      Camada base de branco nobre garantindo contraste total, mesmo em canecas pretas ou coloridas.
+                      Camada base garantindo contraste nítido e fidelidade visual, mesmo em peças escuras ou coloridas.
                     </p>
                   </div>
                 </div>
@@ -401,7 +376,7 @@ export default function HomePage() {
               </div>
 
               <span className="text-xs font-bold text-[#C25E48] uppercase tracking-widest mb-1">
-                Ateliê Feito de Nós
+                {brand.fullName}
               </span>
               <h3 className="text-2xl font-black text-stone-900 font-serif mb-2">
                 Mais do que um produto, um afeto eterno.
@@ -426,17 +401,7 @@ export default function HomePage() {
       {/* 7. FOOTER */}
       <footer className="mt-auto bg-[#1C1917] text-stone-400 py-12 text-xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-xl bg-[#C25E48] text-white flex items-center justify-center font-black">
-              FN
-            </div>
-            <div>
-              <span className="font-bold text-white block">Feito de Nós — Personalize seu Presente</span>
-              <span className="text-[11px] text-stone-500">
-                Adesivos DTF UV em alto relevo com acabamento de ateliê
-              </span>
-            </div>
-          </div>
+          <BrandLogo variant="white" />
 
           <div className="flex items-center gap-6">
             <Link href="/personalizar/caneca" className="hover:text-white transition-colors">
@@ -448,7 +413,7 @@ export default function HomePage() {
           </div>
 
           <p className="text-stone-500 text-center sm:text-right">
-            © {new Date().getFullYear()} Feito de Nós. Todos os direitos reservados.
+            © {new Date().getFullYear()} {brand.fullName}. Todos os direitos reservados.
           </p>
         </div>
       </footer>
