@@ -3,8 +3,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import { CLIPARTS_LIBRARY, ClipartItem } from '@/data/cliparts';
 
-const STORAGE_KEY = 'feito_de_nos_custom_artworks_v1';
-const EVENT_NAME = 'feito_de_nos_artworks_updated';
+const STORAGE_KEY = 'montua_custom_artworks_v1';
+const EVENT_NAME = 'montua_artworks_updated';
 
 // Helper to get initial artworks with isActive defaulted to true
 const getInitialArtworks = (): ClipartItem[] => {

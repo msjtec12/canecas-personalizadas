@@ -1,7 +1,12 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { checkDatabaseHealth, checkStorageHealth } from '@/lib/supabaseServer';
+import { isAuthenticatedAdmin } from '@/lib/auth';
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  if (!isAuthenticatedAdmin(request)) {
+    return NextResponse.json({ success: false, error: 'Acesso não autorizado.' }, { status: 401 });
+  }
+
   const [dbHealth, storageHealth] = await Promise.all([
     checkDatabaseHealth(),
     checkStorageHealth(),

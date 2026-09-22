@@ -10,8 +10,8 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 INSERT INTO storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
 VALUES 
   ('artworks', 'artworks', true, 15728640, ARRAY['image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'image/svg+xml']),
-  ('customer-uploads', 'customer-uploads', true, 15728640, ARRAY['image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'image/svg+xml']),
-  ('order-previews', 'order-previews', true, 10485760, ARRAY['image/png', 'image/webp'])
+  ('customer-uploads', 'customer-uploads', false, 15728640, ARRAY['image/png', 'image/jpeg', 'image/jpg', 'image/webp', 'image/svg+xml']),
+  ('order-previews', 'order-previews', false, 10485760, ARRAY['image/png', 'image/webp'])
 ON CONFLICT (id) DO UPDATE SET
   public = EXCLUDED.public,
   file_size_limit = EXCLUDED.file_size_limit,
@@ -27,8 +27,6 @@ CREATE POLICY "Admin write artworks" ON storage.objects
   FOR ALL USING (bucket_id = 'artworks' AND auth.role() = 'authenticated');
 
 DROP POLICY IF EXISTS "Public insert customer uploads" ON storage.objects;
-CREATE POLICY "Public insert customer uploads" ON storage.objects
-  FOR INSERT WITH CHECK (bucket_id = 'customer-uploads');
 
 DROP POLICY IF EXISTS "Public read customer uploads" ON storage.objects;
 DROP POLICY IF EXISTS "Admin list customer uploads" ON storage.objects;
@@ -39,12 +37,10 @@ CREATE POLICY "Admin list customer uploads" ON storage.objects
   );
 
 DROP POLICY IF EXISTS "Public insert order previews" ON storage.objects;
-CREATE POLICY "Public insert order previews" ON storage.objects
-  FOR INSERT WITH CHECK (bucket_id = 'order-previews');
 
 DROP POLICY IF EXISTS "Public read order previews" ON storage.objects;
-CREATE POLICY "Public read order previews" ON storage.objects
-  FOR SELECT USING (bucket_id = 'order-previews');
+CREATE POLICY "Admin read order previews" ON storage.objects
+  FOR SELECT USING (bucket_id = 'order-previews' AND auth.role() = 'authenticated');
 
 
 -- 3. TABELA DE PRODUTOS

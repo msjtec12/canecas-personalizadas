@@ -19,6 +19,7 @@ import {
   Phone,
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { brand } from '@/config/brand';
 import {
   ProductDefinition,
   ProductColor,
@@ -57,7 +58,7 @@ export const OrderModal: React.FC<OrderModalProps> = ({
   onOrderSuccess,
 }) => {
   const [quantity, setQuantity] = useState<number>(1);
-  const [includePackaging, setIncludePackaging] = useState<boolean>(true);
+  const [includePackaging, setIncludePackaging] = useState<boolean>(false);
 
   // Dados do cliente (Sem cadastro obrigatório)
   const [customerName, setCustomerName] = useState<string>('');
@@ -160,7 +161,7 @@ export const OrderModal: React.FC<OrderModalProps> = ({
     ];
 
     const encoded = encodeURIComponent(messageLines.join('\n'));
-    const whatsappUrl = `https://api.whatsapp.com/send?phone=5511999999999&text=${encoded}`;
+    const whatsappUrl = `https://api.whatsapp.com/send?phone=${brand.contact.whatsappNumber}&text=${encoded}`;
     window.open(whatsappUrl, '_blank');
   };
 

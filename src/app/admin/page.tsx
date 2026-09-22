@@ -117,7 +117,7 @@ export default function AdminPage() {
   const [isExportingSurface, setIsExportingSurface] = useState<string | null>(null);
 
   // Autenticação Real do Painel Admin
-  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState<boolean>(true);
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState<boolean>(false);
   const [adminPasscodeInput, setAdminPasscodeInput] = useState<string>('');
   const [adminLoginError, setAdminLoginError] = useState<string | null>(null);
   const [isLoggingIn, setIsLoggingIn] = useState<boolean>(false);
@@ -194,7 +194,7 @@ export default function AdminPage() {
       if (res.ok && data.success) {
         setIsAdminAuthenticated(true);
         setAdminPasscodeInput('');
-        fetchOrders();
+        await Promise.all([fetchOrders(), fetchHealth()]);
       } else {
         setAdminLoginError(data.error || 'Senha de acesso incorreta.');
       }
