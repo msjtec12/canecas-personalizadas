@@ -1854,7 +1854,7 @@ export default function AdminPage() {
                           type="button"
                           onClick={() => handleAddOrderToA3(selectedOrder, true)}
                           className="px-3.5 py-2 rounded-xl bg-[#C25E48] hover:bg-[#a94f3b] text-white font-bold text-xs flex items-center gap-1.5 transition-all shadow-xs cursor-pointer active:scale-[0.98]"
-                          title="Montar Folha A3 de Impressão DTF UV com os adesivos deste pedido"
+                          title="Adicionar as artes deste pedido ao arquivo A3 para a gráfica"
                         >
                           <LayoutGrid className="w-4 h-4 text-white" />
                           <span>Montar Folha A3</span>
@@ -2868,7 +2868,7 @@ export default function AdminPage() {
       )}
 
       {/* ================================================================ */}
-      {/* MODAL: MONTADOR DE FOLHA A3 DTF UV (300 DPI)                     */}
+      {/* MODAL: MONTADOR A3 PARA GRÁFICA (300 PPI)                     */}
       {/* ================================================================ */}
       {isA3ModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-stone-900/70 backdrop-blur-md overflow-y-auto">
@@ -3251,7 +3251,7 @@ export default function AdminPage() {
                   </div>
                 </div>
 
-                {/* 2. Fila de Adesivos DTF UV */}
+                {/* 2. Fila de Artes para a Gráfica */}
                 <div className="bg-white rounded-3xl p-5 border border-stone-200 shadow-xs flex-1 flex flex-col min-h-[220px]">
                   <div className="flex items-center justify-between pb-3 border-b border-stone-100">
                     <div>
