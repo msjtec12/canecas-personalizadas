@@ -262,22 +262,21 @@ export default function AdminPage() {
   };
 
   // =========================================================================
-  // A3 GANG SHEET BUILDER (DTF UV 300 DPI)
+  // A3 PARA GRÁFICA TERCEIRIZADA — otimização de custo por folha
   // =========================================================================
   const [isA3ModalOpen, setIsA3ModalOpen] = useState<boolean>(false);
   const [a3Queue, setA3Queue] = useState<A3QueueEntry[]>([]);
   const [a3Config, setA3Config] = useState<A3SheetConfig>({
     orientation: 'portrait',
-    marginMm: 5,
-    spacingMm: 5,
-    showCutMarks: true,
-    showLabels: true,
+    marginMm: 3,
+    spacingMm: 3,
+    showCutMarks: false,
+    showLabels: false,
   });
   const [a3SelectedSheet, setA3SelectedSheet] = useState<number>(0);
   const [isExportingA3, setIsExportingA3] = useState<boolean>(false);
 
-  // Empacotamento inteligente em tempo real dos adesivos na Folha A3
-  const packingResult = React.useMemo(() => {
+  const flatA3Items = React.useMemo(() => {
     const flatItems: Omit<A3DecalItem, 'xMm' | 'yMm' | 'sheetIndex'>[] = [];
     a3Queue.forEach((entry) => {
       for (let q = 0; q < entry.quantity; q++) {
@@ -296,8 +295,30 @@ export default function AdminPage() {
         });
       }
     });
-    return packDecalsOnA3(flatItems, a3Config);
-  }, [a3Queue, a3Config]);
+    return flatItems;
+  }, [a3Queue]);
+
+  // MaxRects reaproveita os vazios entre artes de tamanhos diferentes.
+  const packingResult = React.useMemo(
+    () => packDecalsOnA3(flatA3Items, a3Config),
+    [flatA3Items, a3Config]
+  );
+
+  // Compara retrato e paisagem e recomenda a opção que usa menos folhas.
+  const orientationRecommendation = React.useMemo(() => {
+    if (flatA3Items.length === 0) return a3Config.orientation;
+
+    const portrait = packDecalsOnA3(flatA3Items, { ...a3Config, orientation: 'portrait' });
+    const landscape = packDecalsOnA3(flatA3Items, { ...a3Config, orientation: 'landscape' });
+
+    if (portrait.totalSheets !== landscape.totalSheets) {
+      return portrait.totalSheets < landscape.totalSheets ? 'portrait' : 'landscape';
+    }
+
+    return portrait.utilizationPercentage >= landscape.utilizationPercentage
+      ? 'portrait'
+      : 'landscape';
+  }, [flatA3Items, a3Config.marginMm, a3Config.spacingMm, a3Config.showCutMarks, a3Config.showLabels]);
 
   // Garante que o índice da folha seja válido ao mudar número total de folhas
   useEffect(() => {
