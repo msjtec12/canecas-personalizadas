@@ -6,6 +6,7 @@ export interface ClipartItem {
   isActive?: boolean;
   fileType?: string;
   createdAt?: string;
+  tags?: string[];
 }
 
 // Helper to encode clean, scalable SVGs as Data URIs
@@ -26,6 +27,11 @@ export const CLIPART_CATEGORIES = [
   'Frases',
   'Religioso',
   'Animais',
+  'Humor',
+  'Café',
+  'Gamer',
+  'Infantil',
+  'Stickers',
   'Outros',
 ] as const;
 
@@ -366,4 +372,179 @@ export const CLIPARTS_LIBRARY: ClipartItem[] = [
        <polygon points="42,22 78,22 98,42 98,78 78,98 42,98 22,78 22,42" fill="none" stroke="#B45309" stroke-width="1.5" stroke-dasharray="4,4"/>`
     ),
   },
+  // ==========================================
+  // HUMOR & MEMES ORIGINAIS
+  // ==========================================
+  {
+    id: 'humor-bateria-social',
+    title: 'Bateria Social Baixa',
+    category: 'Humor',
+    tags: ['meme', 'humor', 'social', 'cansado'],
+    svgDataUri: createSvgUri(
+      `<rect x="22" y="38" width="70" height="42" rx="8" fill="none" stroke="#1C1917" stroke-width="5"/>
+       <rect x="92" y="50" width="7" height="18" rx="2" fill="#1C1917"/>
+       <rect x="30" y="46" width="13" height="26" rx="3" fill="#C25E48"/>
+       <path d="M52 58 H82" stroke="#1C1917" stroke-width="4" stroke-linecap="round"/>
+       <text x="60" y="101" font-size="11" font-family="Montserrat, sans-serif" font-weight="700" text-anchor="middle" fill="#1C1917">SOCIAL</text>`
+    ),
+  },
+  {
+    id: 'humor-modo-off',
+    title: 'Modo OFF',
+    category: 'Humor',
+    tags: ['meme', 'off', 'descanso'],
+    svgDataUri: createSvgUri(
+      `<circle cx="60" cy="54" r="36" fill="none" stroke="#1C1917" stroke-width="5"/>
+       <path d="M60 24 V54" stroke="#C25E48" stroke-width="7" stroke-linecap="round"/>
+       <path d="M42 34 A27 27 0 1 0 78 34" fill="none" stroke="#1C1917" stroke-width="5" stroke-linecap="round"/>
+       <text x="60" y="106" font-size="13" font-family="Bebas Neue, sans-serif" text-anchor="middle" fill="#1C1917">MODO OFF</text>`
+    ),
+  },
+  {
+    id: 'humor-surtei',
+    title: 'Surtei Mas Estou Bem',
+    category: 'Humor',
+    tags: ['meme', 'engraçado', 'surtei'],
+    svgDataUri: createSvgUri(
+      `<path d="M28 74 C35 42 43 88 52 48 C58 20 67 94 74 50 C80 25 88 74 94 46" fill="none" stroke="#C25E48" stroke-width="5" stroke-linecap="round"/>
+       <circle cx="60" cy="60" r="47" fill="none" stroke="#1C1917" stroke-width="2" stroke-dasharray="4 5"/>
+       <text x="60" y="104" font-size="10" font-family="Montserrat, sans-serif" font-weight="700" text-anchor="middle" fill="#1C1917">TUDO CERTO :)</text>`
+    ),
+  },
+
+  // ==========================================
+  // CAFÉ
+  // ==========================================
+  {
+    id: 'cafe-xicara-coracao',
+    title: 'Café com Amor',
+    category: 'Café',
+    tags: ['café', 'amor', 'xícara'],
+    svgDataUri: createSvgUri(
+      `<path d="M28 46 H82 V78 C82 91 72 98 55 98 C38 98 28 91 28 78 Z" fill="none" stroke="#1C1917" stroke-width="5"/>
+       <path d="M82 54 H92 C102 54 102 72 92 72 H82" fill="none" stroke="#1C1917" stroke-width="5"/>
+       <path d="M48 63 C44 58 36 61 38 68 C40 73 48 78 55 82 C62 78 70 73 72 68 C74 61 66 58 62 63 C58 57 52 57 48 63 Z" fill="#C25E48"/>
+       <path d="M43 36 C38 29 46 25 42 18 M59 36 C54 29 62 25 58 18 M75 36 C70 29 78 25 74 18" fill="none" stroke="#B45309" stroke-width="3" stroke-linecap="round"/>`
+    ),
+  },
+  {
+    id: 'cafe-grao-minimal',
+    title: 'Grão de Café',
+    category: 'Café',
+    tags: ['café', 'grão', 'barista'],
+    svgDataUri: createSvgUri(
+      `<ellipse cx="60" cy="60" rx="34" ry="45" transform="rotate(28 60 60)" fill="none" stroke="#1C1917" stroke-width="5"/>
+       <path d="M46 24 C72 42 47 72 74 98" fill="none" stroke="#B45309" stroke-width="5" stroke-linecap="round"/>`
+    ),
+  },
+
+  // ==========================================
+  // GAMER
+  // ==========================================
+  {
+    id: 'gamer-controle-original',
+    title: 'Controle Gamer',
+    category: 'Gamer',
+    tags: ['gamer', 'jogos', 'controle'],
+    svgDataUri: createSvgUri(
+      `<path d="M34 43 C20 48 16 83 29 92 C39 99 46 82 52 78 H68 C74 82 81 99 91 92 C104 83 100 48 86 43 C73 38 47 38 34 43 Z" fill="none" stroke="#1C1917" stroke-width="5"/>
+       <path d="M38 58 V76 M29 67 H47" stroke="#C25E48" stroke-width="5" stroke-linecap="round"/>
+       <circle cx="78" cy="60" r="4" fill="#1D4ED8"/>
+       <circle cx="88" cy="70" r="4" fill="#059669"/>`
+    ),
+  },
+  {
+    id: 'gamer-pixel-heart',
+    title: 'Coração Pixel',
+    category: 'Gamer',
+    tags: ['gamer', 'pixel', 'amor'],
+    svgDataUri: createSvgUri(
+      `<path d="M24 38 H38 V24 H52 V38 H68 V24 H82 V38 H96 V66 H82 V80 H68 V94 H52 V80 H38 V66 H24 Z" fill="#C25E48"/>
+       <rect x="38" y="38" width="14" height="14" fill="#FCA5A5"/>
+       <rect x="68" y="38" width="14" height="14" fill="#FCA5A5"/>`
+    ),
+  },
+
+  // ==========================================
+  // INFANTIL — PERSONAGENS ORIGINAIS / GENÉRICOS
+  // ==========================================
+  {
+    id: 'infantil-dragao-bebe',
+    title: 'Dragão Bebê Original',
+    category: 'Infantil',
+    tags: ['dragão', 'fantasia', 'criança', 'original'],
+    svgDataUri: createSvgUri(
+      `<path d="M34 74 C30 50 44 30 64 32 C84 34 94 52 86 72 C80 90 56 98 40 86 Z" fill="#A7F3D0" stroke="#1C1917" stroke-width="4"/>
+       <path d="M48 34 L42 18 L58 30 M70 34 L78 18 L82 40" fill="#F59E0B" stroke="#1C1917" stroke-width="3" stroke-linejoin="round"/>
+       <circle cx="54" cy="56" r="4" fill="#1C1917"/>
+       <circle cx="74" cy="56" r="4" fill="#1C1917"/>
+       <path d="M56 72 Q64 78 72 72" fill="none" stroke="#1C1917" stroke-width="3" stroke-linecap="round"/>
+       <path d="M38 62 C18 54 20 82 42 82" fill="none" stroke="#1C1917" stroke-width="4" stroke-linecap="round"/>`
+    ),
+  },
+  {
+    id: 'infantil-astronauta-fofo',
+    title: 'Astronauta Fofo Original',
+    category: 'Infantil',
+    tags: ['espaço', 'astronauta', 'criança', 'original'],
+    svgDataUri: createSvgUri(
+      `<circle cx="60" cy="45" r="28" fill="#F8FAFC" stroke="#1C1917" stroke-width="4"/>
+       <path d="M40 42 Q60 25 80 42 V55 Q60 66 40 55 Z" fill="#DBEAFE" stroke="#1C1917" stroke-width="3"/>
+       <circle cx="52" cy="47" r="3" fill="#1C1917"/>
+       <circle cx="68" cy="47" r="3" fill="#1C1917"/>
+       <path d="M52 57 Q60 62 68 57" fill="none" stroke="#C25E48" stroke-width="2.5" stroke-linecap="round"/>
+       <path d="M43 72 H77 L84 104 H36 Z" fill="#F8FAFC" stroke="#1C1917" stroke-width="4"/>
+       <circle cx="60" cy="84" r="7" fill="#C25E48"/>`
+    ),
+  },
+  {
+    id: 'infantil-princesa-coroa',
+    title: 'Coroa de Princesa',
+    category: 'Infantil',
+    tags: ['princesa', 'coroa', 'fantasia'],
+    svgDataUri: createSvgUri(
+      `<path d="M20 78 L28 38 L48 58 L60 28 L72 58 L92 38 L100 78 Z" fill="#FDE68A" stroke="#1C1917" stroke-width="4" stroke-linejoin="round"/>
+       <path d="M24 86 H96" stroke="#C25E48" stroke-width="6" stroke-linecap="round"/>
+       <circle cx="28" cy="34" r="5" fill="#C25E48"/>
+       <circle cx="60" cy="24" r="5" fill="#C25E48"/>
+       <circle cx="92" cy="34" r="5" fill="#C25E48"/>`
+    ),
+  },
+
+  // ==========================================
+  // STICKERS
+  // ==========================================
+  {
+    id: 'sticker-smile',
+    title: 'Smile Feliz',
+    category: 'Stickers',
+    tags: ['emoji', 'feliz', 'smile'],
+    svgDataUri: createSvgUri(
+      `<circle cx="60" cy="60" r="46" fill="#FDE047" stroke="#1C1917" stroke-width="4"/>
+       <circle cx="44" cy="50" r="5" fill="#1C1917"/>
+       <circle cx="76" cy="50" r="5" fill="#1C1917"/>
+       <path d="M38 70 Q60 94 82 70" fill="none" stroke="#1C1917" stroke-width="5" stroke-linecap="round"/>`
+    ),
+  },
+  {
+    id: 'sticker-raio',
+    title: 'Raio Pop',
+    category: 'Stickers',
+    tags: ['raio', 'energia', 'pop'],
+    svgDataUri: createSvgUri(
+      `<path d="M67 12 L28 66 H53 L45 108 L94 50 H67 Z" fill="#FACC15" stroke="#1C1917" stroke-width="5" stroke-linejoin="round"/>`
+    ),
+  },
+  {
+    id: 'sticker-estrela',
+    title: 'Estrela Pop',
+    category: 'Stickers',
+    tags: ['estrela', 'pop', 'fofo'],
+    svgDataUri: createSvgUri(
+      `<polygon points="60,10 73,43 108,44 80,65 90,100 60,80 30,100 40,65 12,44 47,43" fill="#F9A8D4" stroke="#1C1917" stroke-width="4" stroke-linejoin="round"/>
+       <circle cx="49" cy="55" r="3" fill="#1C1917"/>
+       <circle cx="71" cy="55" r="3" fill="#1C1917"/>
+       <path d="M50 67 Q60 74 70 67" fill="none" stroke="#1C1917" stroke-width="2.5" stroke-linecap="round"/>`
+    ),
+  }
 ];

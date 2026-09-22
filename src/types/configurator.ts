@@ -71,7 +71,11 @@ export type TextFontFamily =
   | 'Montserrat'
   | 'Pacifico'
   | 'Oswald'
-  | 'Caveat';
+  | 'Caveat'
+  | 'Great Vibes'
+  | 'Bebas Neue'
+  | 'Cinzel'
+  | 'Lobster';
 
 export interface TextElement extends BaseElement {
   type: 'text';

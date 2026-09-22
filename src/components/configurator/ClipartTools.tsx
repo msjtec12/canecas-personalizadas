@@ -26,10 +26,12 @@ export const ClipartTools: React.FC<ClipartToolsProps> = ({
   const filteredCliparts = activeArtworks.filter((item) => {
     const matchCategory =
       selectedCategory === 'Todos' || item.category === selectedCategory;
+    const query = searchQuery.toLocaleLowerCase('pt-BR');
     const matchSearch =
-      item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.category.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchCategory && matchSearch;
+      item.title.toLocaleLowerCase('pt-BR').includes(query) ||
+      item.category.toLocaleLowerCase('pt-BR').includes(query) ||
+      item.tags?.some((tag) => tag.toLocaleLowerCase('pt-BR').includes(query));
+    return matchCategory && Boolean(matchSearch);
   });
 
   const handleSelectClipart = (item: ClipartItem) => {
@@ -72,7 +74,7 @@ export const ClipartTools: React.FC<ClipartToolsProps> = ({
         </div>
         <div>
           <h4 className="font-semibold text-stone-800 text-sm">Biblioteca de Artes</h4>
-          <p className="text-xs text-stone-400">Elementos e ilustrações ativas para DTF UV</p>
+          <p className="text-xs text-stone-400">Artes originais, stickers e elementos decorativos</p>
         </div>
       </div>
 
@@ -83,7 +85,7 @@ export const ClipartTools: React.FC<ClipartToolsProps> = ({
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Buscar artes, temas ou categorias..."
+          placeholder="Buscar arte, sticker, café, gamer..."
           className="w-full pl-9 pr-3 py-1.5 text-xs border border-stone-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#C25E48]/20 focus:border-[#C25E48]"
         />
       </div>
