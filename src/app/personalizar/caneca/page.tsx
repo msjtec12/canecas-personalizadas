@@ -29,6 +29,7 @@ import { PropertiesPanel } from '@/components/configurator/PropertiesPanel';
 import { OrderModal } from '@/components/configurator/OrderModal';
 import { DraftRecoveryBanner } from '@/components/configurator/DraftRecoveryBanner';
 import { SurfaceId } from '@/types/configurator';
+import { BrandLogo } from '@/components/common/BrandLogo';
 
 type ActiveToolTab = 'none' | 'text' | 'image' | 'clipart' | 'colors';
 
@@ -116,17 +117,18 @@ export default function MugConfiguratorPage() {
               <ArrowLeft className="w-5 h-5" />
             </Link>
 
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="font-black text-[#C25E48] text-sm tracking-tight font-serif">MONTUÁ</span>
-                <span className="text-slate-300">|</span>
-                <h1 className="font-semibold text-slate-900 text-sm sm:text-base truncate max-w-[200px] sm:max-w-none">
-                  {product.name}
-                </h1>
+            <div className="flex items-center gap-3 min-w-0">
+              <BrandLogo variant="compact" showDescriptor={false} href="/" />
+              <div className="min-w-0">
+                <div className="flex items-center gap-2">
+                  <h1 className="font-semibold text-slate-900 text-sm sm:text-base truncate max-w-[180px] sm:max-w-none">
+                    {product.name}
+                  </h1>
+                </div>
+                <p className="text-[11px] text-slate-400 hidden sm:block">
+                  Crie seu presente — Personalize cada detalhe do seu jeito. Superfície: <strong className="text-slate-700">{activeSurface.name}</strong>
+                </p>
               </div>
-              <p className="text-[11px] text-slate-400 hidden sm:block">
-                Crie seu presente — Personalize cada detalhe do seu jeito. Superfície: <strong className="text-slate-700">{activeSurface.name}</strong>
-              </p>
             </div>
           </div>
 
