@@ -8,6 +8,13 @@ export async function GET(
   context: { params: Promise<{ id: string }> }
 ) {
   try {
+    if (!isAuthenticatedAdmin(request)) {
+      return NextResponse.json(
+        { success: false, error: 'Acesso não autorizado. Autenticação administrativa obrigatória.' },
+        { status: 401 }
+      );
+    }
+
     const { id } = await context.params;
     const orders = await getOrders({ search: id });
     const order = orders.find((o) => o.id === id || o.orderNumber === id);
