@@ -9,7 +9,7 @@ import {
   CustomizationMap,
 } from '@/types/configurator';
 
-const STORAGE_KEY = 'feito_de_nos_customization_draft';
+const STORAGE_KEY = 'montua_customization_draft_v1';
 
 const initialSurfacesState: CustomizationMap = {
   front: { elements: [] },
