@@ -98,16 +98,16 @@ export async function POST(request: NextRequest) {
 
     const filePath = `${Date.now()}-${crypto.randomUUID()}.${extension}`;
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-    if (supabaseUrl && supabaseAnonKey) {
+    if (supabaseUrl && supabaseServiceKey) {
       const uploadRes = await fetch(
         `${supabaseUrl}/storage/v1/object/${requestedBucket}/${filePath}`,
         {
           method: 'POST',
           headers: {
-            apikey: supabaseAnonKey,
-            Authorization: `Bearer ${supabaseAnonKey}`,
+            apikey: supabaseServiceKey,
+            Authorization: `Bearer ${supabaseServiceKey}`,
             'Content-Type': finalMime,
             'x-upsert': 'false',
           },
