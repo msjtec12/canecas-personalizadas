@@ -1,11 +1,22 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { ADMIN_DEFAULT_PASSCODE, ADMIN_AUTH_TOKEN } from '@/lib/auth';
+import {
+  createAdminSessionToken,
+  isAdminAuthConfigured,
+  verifyAdminPasscode,
+} from '@/lib/auth';
 
 export async function POST(request: NextRequest) {
   try {
+    if (!isAdminAuthConfigured()) {
+      return NextResponse.json(
+        { success: false, error: 'Autenticação administrativa não configurada no servidor.' },
+        { status: 503 }
+      );
+    }
+
     const { passcode } = await request.json();
 
-    if (!passcode || passcode !== ADMIN_DEFAULT_PASSCODE) {
+    if (typeof passcode !== 'string' || !verifyAdminPasscode(passcode)) {
       return NextResponse.json(
         { success: false, error: 'Senha de acesso administrativo incorreta.' },
         { status: 401 }
@@ -14,27 +25,31 @@ export async function POST(request: NextRequest) {
 
     const response = NextResponse.json({
       success: true,
-      token: ADMIN_AUTH_TOKEN,
       message: 'Autenticado com sucesso no Painel de Produção & Gestão.',
     });
 
-    // Define cookie HttpOnly seguro para navegação contínua no admin
-    response.cookies.set('admin_session', ADMIN_AUTH_TOKEN, {
+    response.cookies.set('admin_session', createAdminSessionToken(), {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
+      sameSite: 'strict',
       path: '/',
-      maxAge: 60 * 60 * 24 * 7, // 7 dias
+      maxAge: 60 * 60 * 24 * 7,
     });
 
     return response;
-  } catch (err) {
+  } catch {
     return NextResponse.json({ success: false, error: 'Erro ao processar login.' }, { status: 500 });
   }
 }
 
 export async function DELETE() {
   const response = NextResponse.json({ success: true, message: 'Sessão administrativa encerrada.' });
-  response.cookies.delete('admin_session');
+  response.cookies.set('admin_session', '', {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'strict',
+    path: '/',
+    maxAge: 0,
+  });
   return response;
 }
