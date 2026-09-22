@@ -262,22 +262,21 @@ export default function AdminPage() {
   };
 
   // =========================================================================
-  // A3 GANG SHEET BUILDER (DTF UV 300 DPI)
+  // A3 PARA GRÁFICA TERCEIRIZADA — otimização de custo por folha
   // =========================================================================
   const [isA3ModalOpen, setIsA3ModalOpen] = useState<boolean>(false);
   const [a3Queue, setA3Queue] = useState<A3QueueEntry[]>([]);
   const [a3Config, setA3Config] = useState<A3SheetConfig>({
     orientation: 'portrait',
-    marginMm: 5,
-    spacingMm: 5,
-    showCutMarks: true,
-    showLabels: true,
+    marginMm: 3,
+    spacingMm: 3,
+    showCutMarks: false,
+    showLabels: false,
   });
   const [a3SelectedSheet, setA3SelectedSheet] = useState<number>(0);
   const [isExportingA3, setIsExportingA3] = useState<boolean>(false);
 
-  // Empacotamento inteligente em tempo real dos adesivos na Folha A3
-  const packingResult = React.useMemo(() => {
+  const flatA3Items = React.useMemo(() => {
     const flatItems: Omit<A3DecalItem, 'xMm' | 'yMm' | 'sheetIndex'>[] = [];
     a3Queue.forEach((entry) => {
       for (let q = 0; q < entry.quantity; q++) {
@@ -296,8 +295,30 @@ export default function AdminPage() {
         });
       }
     });
-    return packDecalsOnA3(flatItems, a3Config);
-  }, [a3Queue, a3Config]);
+    return flatItems;
+  }, [a3Queue]);
+
+  // MaxRects reaproveita os vazios entre artes de tamanhos diferentes.
+  const packingResult = React.useMemo(
+    () => packDecalsOnA3(flatA3Items, a3Config),
+    [flatA3Items, a3Config]
+  );
+
+  // Compara retrato e paisagem e recomenda a opção que usa menos folhas.
+  const orientationRecommendation = React.useMemo(() => {
+    if (flatA3Items.length === 0) return a3Config.orientation;
+
+    const portrait = packDecalsOnA3(flatA3Items, { ...a3Config, orientation: 'portrait' });
+    const landscape = packDecalsOnA3(flatA3Items, { ...a3Config, orientation: 'landscape' });
+
+    if (portrait.totalSheets !== landscape.totalSheets) {
+      return portrait.totalSheets < landscape.totalSheets ? 'portrait' : 'landscape';
+    }
+
+    return portrait.utilizationPercentage >= landscape.utilizationPercentage
+      ? 'portrait'
+      : 'landscape';
+  }, [flatA3Items, a3Config.marginMm, a3Config.spacingMm, a3Config.showCutMarks, a3Config.showLabels]);
 
   // Garante que o índice da folha seja válido ao mudar número total de folhas
   useEffect(() => {
@@ -854,16 +875,16 @@ export default function AdminPage() {
             </div>
           </div>
 
-          {/* Botão de Calibração DTF UV (Produção -> Calibração) */}
+          {/* Teste opcional de escala para conferência com a gráfica */}
           <button
             type="button"
             disabled={isGeneratingCalibration}
             onClick={handleGenerateCalibrationSheet}
             className="px-3 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 transition-all cursor-pointer"
-            title="Gerar Folha de Calibração Métrica DTF UV (10mm, 25mm, 50mm, 100mm a 300 DPI)"
+            title="Gerar teste opcional de escala 1:1 para conferência com a gráfica"
           >
             <Ruler className="w-3.5 h-3.5 text-amber-400" />
-            <span className="hidden lg:inline">{isGeneratingCalibration ? 'Gerando...' : 'Calibração DTF'}</span>
+            <span className="hidden lg:inline">{isGeneratingCalibration ? 'Gerando...' : 'Teste de escala'}</span>
           </button>
 
           {/* Botão de Abertura do Montador de Folha A3 */}
@@ -871,10 +892,10 @@ export default function AdminPage() {
             type="button"
             onClick={() => setIsA3ModalOpen(true)}
             className="px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-2 bg-[#C25E48] hover:bg-[#a94f3b] text-white shadow-xs transition-all active:scale-[0.98] cursor-pointer"
-            title="Abrir Montador de Folha A3 DTF UV (297 × 420 mm)"
+            title="Montar arquivo A3 otimizado para envio à gráfica"
           >
             <LayoutGrid className="w-4 h-4 text-white" />
-            <span className="hidden md:inline">Folha A3 DTF UV</span>
+            <span className="hidden md:inline">A3 para Gráfica</span>
             <span className="md:hidden">Folha A3</span>
             {a3Queue.length > 0 && (
               <span className="bg-white text-[#C25E48] text-[10px] font-black px-1.5 py-0.2 rounded-full ml-0.5">
@@ -1833,7 +1854,7 @@ export default function AdminPage() {
                           type="button"
                           onClick={() => handleAddOrderToA3(selectedOrder, true)}
                           className="px-3.5 py-2 rounded-xl bg-[#C25E48] hover:bg-[#a94f3b] text-white font-bold text-xs flex items-center gap-1.5 transition-all shadow-xs cursor-pointer active:scale-[0.98]"
-                          title="Montar Folha A3 de Impressão DTF UV com os adesivos deste pedido"
+                          title="Adicionar as artes deste pedido ao arquivo A3 para a gráfica"
                         >
                           <LayoutGrid className="w-4 h-4 text-white" />
                           <span>Montar Folha A3</span>
@@ -1854,7 +1875,7 @@ export default function AdminPage() {
                           disabled={isGeneratingCalibration}
                           onClick={handleGenerateCalibrationSheet}
                           className="px-3 py-2 rounded-xl border border-stone-200 hover:bg-stone-100 text-stone-700 font-semibold text-xs flex items-center gap-1.5 transition-colors cursor-pointer"
-                          title="Gerar Folha de Calibração Métrica DTF UV (10mm, 25mm, 50mm, 100mm a 300 DPI)"
+                          title="Gerar teste opcional de escala 1:1 para conferência com a gráfica"
                         >
                           <Ruler className="w-4 h-4 text-amber-600" />
                           <span>Calibração</span>
@@ -2847,7 +2868,7 @@ export default function AdminPage() {
       )}
 
       {/* ================================================================ */}
-      {/* MODAL: MONTADOR DE FOLHA A3 DTF UV (300 DPI)                     */}
+      {/* MODAL: MONTADOR A3 PARA GRÁFICA (300 PPI)                     */}
       {/* ================================================================ */}
       {isA3ModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-4 bg-stone-900/70 backdrop-blur-md overflow-y-auto">
@@ -2861,14 +2882,14 @@ export default function AdminPage() {
                 <div>
                   <div className="flex items-center gap-2">
                     <h3 className="font-black text-stone-900 text-base sm:text-lg font-serif">
-                      Montador de Folha A3 DTF UV
+                      Montador A3 para Gráfica
                     </h3>
                     <span className="text-[10px] font-bold bg-[#C25E48]/10 text-[#C25E48] px-2 py-0.5 rounded-full border border-[#C25E48]/20">
-                      300 DPI NATIVO
+                      A3 • 300 PPI
                     </span>
                   </div>
                   <p className="text-xs text-stone-500">
-                    Formato A3 ({a3Config.orientation === 'portrait' ? '297 × 420' : '420 × 297'} mm • {a3Config.orientation === 'portrait' ? '3508 × 4961' : '4961 × 3508'} px) • Fundo 100% transparente para software RIP
+                    Formato A3 ({a3Config.orientation === 'portrait' ? '297 × 420' : '420 × 297'} mm • {a3Config.orientation === 'portrait' ? '3508 × 4961' : '4961 × 3508'} px) • arquivo transparente em escala 1:1 para envio à gráfica
                   </p>
                 </div>
               </div>
@@ -2916,9 +2937,9 @@ export default function AdminPage() {
                     </button>
                   </div>
 
-                  {/* Aproveitamento do Filme */}
+                  {/* Aproveitamento da folha */}
                   <div className="flex items-center gap-2">
-                    <span className="text-[11px] text-stone-500 font-medium">Ocupação do Filme:</span>
+                    <span className="text-[11px] text-stone-500 font-medium">Aproveitamento total:</span>
                     <span
                       className={`text-xs font-black px-2.5 py-0.5 rounded-full ${
                         packingResult.utilizationPercentage >= 70
@@ -2928,7 +2949,7 @@ export default function AdminPage() {
                           : 'bg-stone-100 text-stone-600 border border-stone-300'
                       }`}
                     >
-                      {packingResult.utilizationPercentage}% Preenchida
+                      {packingResult.utilizationPercentage}% utilizado
                     </span>
                   </div>
                 </div>
@@ -3041,7 +3062,7 @@ export default function AdminPage() {
                         <LayoutGrid className="w-10 h-10 mb-2 stroke-1 text-stone-300" />
                         <span className="text-xs font-bold text-stone-500">Folha A3 Vazia</span>
                         <p className="text-[11px] text-stone-400 mt-1 max-w-[200px]">
-                          Adicione adesivos dos pedidos na fila lateral para montar a chapa de impressão.
+                          Adicione artes dos pedidos na fila lateral para montar o arquivo A3.
                         </p>
                       </div>
                     )}
@@ -3054,10 +3075,12 @@ export default function AdminPage() {
                     Margem: <strong>{a3Config.marginMm}mm</strong> • Espaçamento: <strong>{a3Config.spacingMm}mm</strong>
                   </span>
                   <span>
-                    Adesivos nesta folha:{' '}
+                    Artes nesta folha:{' '}
                     <strong>
                       {packingResult.placedItems.filter((i) => i.sheetIndex === a3SelectedSheet).length}
                     </strong>
+                    {' '}• Uso:{' '}
+                    <strong>{packingResult.sheetUtilizationPercentages[a3SelectedSheet] || 0}%</strong>
                   </span>
                 </div>
               </div>
@@ -3068,7 +3091,7 @@ export default function AdminPage() {
                 <div className="bg-white rounded-3xl p-5 border border-stone-200 shadow-xs space-y-4">
                   <h4 className="text-xs font-bold text-stone-800 uppercase tracking-wider flex items-center gap-1.5">
                     <Sliders className="w-3.5 h-3.5 text-[#C25E48]" />
-                    Parâmetros de Impressão DTF UV
+                    Parâmetros para a Gráfica
                   </h4>
 
                   {/* Orientação */}
@@ -3100,13 +3123,66 @@ export default function AdminPage() {
                         Paisagem (420 × 297 mm)
                       </button>
                     </div>
+
+                    {flatA3Items.length > 0 && (
+                      <div className="mt-2 flex items-center justify-between gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2">
+                        <div>
+                          <p className="text-[10px] font-bold uppercase tracking-wide text-emerald-700">
+                            Melhor aproveitamento sugerido
+                          </p>
+                          <p className="text-[11px] text-emerald-800">
+                            {orientationRecommendation === 'portrait' ? 'Retrato' : 'Paisagem'} • o sistema compara as duas orientações e prioriza menos folhas.
+                          </p>
+                        </div>
+                        {orientationRecommendation !== a3Config.orientation && (
+                          <button
+                            type="button"
+                            onClick={() =>
+                              setA3Config((cfg) => ({
+                                ...cfg,
+                                orientation: orientationRecommendation,
+                              }))
+                            }
+                            className="shrink-0 rounded-lg bg-emerald-700 px-2.5 py-1.5 text-[10px] font-bold text-white hover:bg-emerald-800"
+                          >
+                            Aplicar
+                          </button>
+                        )}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="rounded-xl border border-[#C25E48]/20 bg-[#C25E48]/5 p-3">
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <p className="text-[11px] font-bold text-stone-800">Perfil econômico</p>
+                        <p className="mt-0.5 text-[10px] leading-relaxed text-stone-500">
+                          Usa margem e espaçamento de 3 mm para reduzir desperdício. Ajuste somente se a gráfica exigir outra medida.
+                        </p>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setA3Config((cfg) => ({
+                            ...cfg,
+                            marginMm: 3,
+                            spacingMm: 3,
+                            showCutMarks: false,
+                            showLabels: false,
+                          }))
+                        }
+                        className="shrink-0 rounded-lg border border-[#C25E48]/30 bg-white px-2.5 py-1.5 text-[10px] font-bold text-[#C25E48] hover:bg-[#C25E48]/10"
+                      >
+                        Aplicar
+                      </button>
+                    </div>
                   </div>
 
                   {/* Margem e Espaçamento */}
                   <div className="grid grid-cols-2 gap-3">
                     <div>
                       <label className="block text-[11px] font-semibold text-stone-600 mb-1">
-                        Margem da Chapa
+                        Margem externa
                       </label>
                       <select
                         value={a3Config.marginMm}
@@ -3116,7 +3192,7 @@ export default function AdminPage() {
                         className="w-full text-xs font-semibold p-2 rounded-xl border border-stone-200 bg-stone-50 focus:outline-none focus:border-[#C25E48]"
                       >
                         <option value={3}>3 mm (Mínima)</option>
-                        <option value={5}>5 mm (Padrão UV)</option>
+                        <option value={5}>5 mm (Padrão)</option>
                         <option value={8}>8 mm</option>
                         <option value={10}>10 mm (Segura)</option>
                       </select>
@@ -3175,7 +3251,7 @@ export default function AdminPage() {
                   </div>
                 </div>
 
-                {/* 2. Fila de Adesivos DTF UV */}
+                {/* 2. Fila de Artes para a Gráfica */}
                 <div className="bg-white rounded-3xl p-5 border border-stone-200 shadow-xs flex-1 flex flex-col min-h-[220px]">
                   <div className="flex items-center justify-between pb-3 border-b border-stone-100">
                     <div>
@@ -3281,7 +3357,7 @@ export default function AdminPage() {
                   </div>
 
                   <p className="text-[11px] text-stone-400 leading-relaxed">
-                    Arquivo gerado em PNG 100% transparente com escala milimétrica exata para RIPs (AcroRIP, DigitalFactory, Maintop).
+                    Arquivo PNG A3 transparente, em escala 1:1. Confirme com a gráfica se ela exige margem, marcas de corte ou outro formato antes do envio.
                   </p>
 
                   <button
@@ -3299,7 +3375,7 @@ export default function AdminPage() {
                       <>
                         <Download className="w-4 h-4" />
                         <span>
-                          Baixar Folha A3 #{a3SelectedSheet + 1} em 300 DPI
+                          Baixar A3 para Gráfica #{a3SelectedSheet + 1}
                         </span>
                       </>
                     )}
