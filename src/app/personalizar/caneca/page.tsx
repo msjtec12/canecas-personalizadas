@@ -175,7 +175,7 @@ export default function MugConfiguratorPage() {
                 Total Estimado
               </span>
               <span className="text-sm sm:text-base font-black text-rose-600">
-                R$ {pricing.getTotalPrice(1, true).toFixed(2).replace('.', ',')}
+                R$ {pricing.getTotalPrice(1, false).toFixed(2).replace('.', ',')}
               </span>
             </div>
 
