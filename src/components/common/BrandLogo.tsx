@@ -15,10 +15,11 @@ export function BrandLogo({
   href = '/',
 }: BrandLogoProps) {
   const isCompact = variant === 'compact';
+  const isWhite = variant === 'white';
   const asset = isCompact ? '/brand/icon.svg' : '/brand/logo-horizontal.svg';
 
   const content = (
-    <div className={`flex items-center select-none ${className}`}>
+    <div className={`flex items-center select-none ${isWhite ? 'rounded-2xl bg-[#FAF8F5] px-3 py-2' : ''} ${className}`}>
       <img
         src={asset}
         alt={isCompact ? 'Montuá' : 'Montuá Presentes Personalizados'}
