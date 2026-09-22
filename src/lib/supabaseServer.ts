@@ -88,7 +88,11 @@ export async function checkStorageHealth(): Promise<{
         bucketCount: data.length,
       };
     }
-    return { operational: true, bucketCount: 3 };
+    return {
+      operational: false,
+      bucketCount: data?.length || 0,
+      error: error?.message || 'Buckets obrigatórios não puderam ser confirmados.',
+    };
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : String(err);
     return { operational: false, bucketCount: 0, error: message };
