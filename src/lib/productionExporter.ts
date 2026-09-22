@@ -140,7 +140,7 @@ export function downloadBlob(blob: Blob, fileName: string) {
 }
 
 /**
- * Renderiza e exporta uma Folha A3 Completa (3508 x 4961 px a 300 DPI) com múltiplos adesivos DTF UV,
+ * Renderiza e exporta uma folha A3 completa (3508 x 4961 px a 300 PPI) pronta para envio à gráfica terceirizada,
  * fundo 100% transparente, marcas de corte e identificação dos pedidos.
  */
 export async function exportA3GangSheet(
@@ -300,7 +300,7 @@ export async function exportA3GangSheet(
     }
   }
 
-  const fileName = `Folha_A3_DTF_UV_Folha${sheetNumber}_${targetWidthPx}x${targetHeightPx}px.png`;
+  const fileName = `Montua_A3_Grafica_Folha${sheetNumber}_${targetWidthPx}x${targetHeightPx}px.png`;
 
   return new Promise((resolve, reject) => {
     canvas.toBlob((blob) => {
