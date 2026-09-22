@@ -18,6 +18,8 @@ export const metadata: Metadata = {
     "Crie presentes personalizados com fotos, nomes, frases e artes. Monte do seu jeito, visualize como ficará e faça seu pedido pela Montuá.",
   icons: {
     icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+    apple: "/brand/icon.svg",
   },
   openGraph: {
     title: "Montuá | Presentes personalizados do seu jeito",
