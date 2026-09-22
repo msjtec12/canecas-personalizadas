@@ -63,6 +63,7 @@ import {
   downloadBlob,
 } from '@/lib/productionExporter';
 import { generateCalibrationSheetBlob } from '@/lib/calibrationExporter';
+import { BrandLogo } from '@/components/common/BrandLogo';
 import {
   packDecalsOnA3,
   A3DecalItem,
@@ -822,17 +823,16 @@ export default function AdminPage() {
           >
             <ArrowLeft className="w-5 h-5" />
           </Link>
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="font-bold text-[#C25E48] text-sm tracking-wider uppercase font-serif">
-                Montuá
-              </span>
-              <span className="text-stone-600">|</span>
-              <h1 className="font-bold text-white text-base">Painel de Gestão</h1>
+          <div className="flex items-center gap-3">
+            <div className="rounded-xl bg-white/95 p-1.5 shadow-sm">
+              <BrandLogo variant="compact" showDescriptor={false} href="/" />
             </div>
-            <p className="text-xs text-stone-400 hidden sm:block">
-              Controle de pedidos, engenharia de produção DTF UV e catálogo de artes
-            </p>
+            <div>
+              <h1 className="font-bold text-white text-base">Painel de Gestão</h1>
+              <p className="text-xs text-stone-400 hidden sm:block">
+                Controle de pedidos, produção terceirizada e catálogo de artes
+              </p>
+            </div>
           </div>
         </div>
 
