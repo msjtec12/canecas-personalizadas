@@ -2937,7 +2937,7 @@ export default function AdminPage() {
                     </button>
                   </div>
 
-                  {/* Aproveitamento do Filme */}
+                  {/* Aproveitamento da folha */}
                   <div className="flex items-center gap-2">
                     <span className="text-[11px] text-stone-500 font-medium">Aproveitamento total:</span>
                     <span
@@ -3062,7 +3062,7 @@ export default function AdminPage() {
                         <LayoutGrid className="w-10 h-10 mb-2 stroke-1 text-stone-300" />
                         <span className="text-xs font-bold text-stone-500">Folha A3 Vazia</span>
                         <p className="text-[11px] text-stone-400 mt-1 max-w-[200px]">
-                          Adicione adesivos dos pedidos na fila lateral para montar a chapa de impressão.
+                          Adicione artes dos pedidos na fila lateral para montar o arquivo A3.
                         </p>
                       </div>
                     )}
@@ -3075,10 +3075,12 @@ export default function AdminPage() {
                     Margem: <strong>{a3Config.marginMm}mm</strong> • Espaçamento: <strong>{a3Config.spacingMm}mm</strong>
                   </span>
                   <span>
-                    Adesivos nesta folha:{' '}
+                    Artes nesta folha:{' '}
                     <strong>
                       {packingResult.placedItems.filter((i) => i.sheetIndex === a3SelectedSheet).length}
                     </strong>
+                    {' '}• Uso:{' '}
+                    <strong>{packingResult.sheetUtilizationPercentages[a3SelectedSheet] || 0}%</strong>
                   </span>
                 </div>
               </div>
@@ -3089,7 +3091,7 @@ export default function AdminPage() {
                 <div className="bg-white rounded-3xl p-5 border border-stone-200 shadow-xs space-y-4">
                   <h4 className="text-xs font-bold text-stone-800 uppercase tracking-wider flex items-center gap-1.5">
                     <Sliders className="w-3.5 h-3.5 text-[#C25E48]" />
-                    Parâmetros de Impressão DTF UV
+                    Parâmetros para a Gráfica
                   </h4>
 
                   {/* Orientação */}
@@ -3119,6 +3121,59 @@ export default function AdminPage() {
                         }`}
                       >
                         Paisagem (420 × 297 mm)
+                      </button>
+                    </div>
+
+                    {flatA3Items.length > 0 && (
+                      <div className="mt-2 flex items-center justify-between gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-3 py-2">
+                        <div>
+                          <p className="text-[10px] font-bold uppercase tracking-wide text-emerald-700">
+                            Melhor aproveitamento sugerido
+                          </p>
+                          <p className="text-[11px] text-emerald-800">
+                            {orientationRecommendation === 'portrait' ? 'Retrato' : 'Paisagem'} • o sistema compara as duas orientações e prioriza menos folhas.
+                          </p>
+                        </div>
+                        {orientationRecommendation !== a3Config.orientation && (
+                          <button
+                            type="button"
+                            onClick={() =>
+                              setA3Config((cfg) => ({
+                                ...cfg,
+                                orientation: orientationRecommendation,
+                              }))
+                            }
+                            className="shrink-0 rounded-lg bg-emerald-700 px-2.5 py-1.5 text-[10px] font-bold text-white hover:bg-emerald-800"
+                          >
+                            Aplicar
+                          </button>
+                        )}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="rounded-xl border border-[#C25E48]/20 bg-[#C25E48]/5 p-3">
+                    <div className="flex items-start justify-between gap-3">
+                      <div>
+                        <p className="text-[11px] font-bold text-stone-800">Perfil econômico</p>
+                        <p className="mt-0.5 text-[10px] leading-relaxed text-stone-500">
+                          Usa margem e espaçamento de 3 mm para reduzir desperdício. Ajuste somente se a gráfica exigir outra medida.
+                        </p>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setA3Config((cfg) => ({
+                            ...cfg,
+                            marginMm: 3,
+                            spacingMm: 3,
+                            showCutMarks: false,
+                            showLabels: false,
+                          }))
+                        }
+                        className="shrink-0 rounded-lg border border-[#C25E48]/30 bg-white px-2.5 py-1.5 text-[10px] font-bold text-[#C25E48] hover:bg-[#C25E48]/10"
+                      >
+                        Aplicar
                       </button>
                     </div>
                   </div>
