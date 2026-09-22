@@ -40,12 +40,6 @@ export default function HomePage() {
             <a href="#diferenciais" className="hover:text-[#C25E48] transition-colors">
               Qualidade
             </a>
-            <Link
-              href="/admin"
-              className="text-xs text-stone-400 hover:text-stone-700 transition-colors"
-            >
-              Painel Admin
-            </Link>
           </nav>
 
           <Link
@@ -405,10 +399,7 @@ export default function HomePage() {
 
           <div className="flex items-center gap-6">
             <Link href="/personalizar/caneca" className="hover:text-white transition-colors">
-              Configurador Caneca
-            </Link>
-            <Link href="/admin" className="hover:text-white transition-colors">
-              Painel Administrativo
+              Personalizar Caneca
             </Link>
           </div>
 
