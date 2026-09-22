@@ -371,7 +371,7 @@ export const CLIPARTS_LIBRARY: ClipartItem[] = [
       `<polygon points="40,16 80,16 104,40 104,80 80,104 40,104 16,80 16,40" fill="none" stroke="#1C1917" stroke-width="3.5"/>
        <polygon points="42,22 78,22 98,42 98,78 78,98 42,98 22,78 22,42" fill="none" stroke="#B45309" stroke-width="1.5" stroke-dasharray="4,4"/>`
     ),
-  },,
+  },
   // ==========================================
   // HUMOR & MEMES ORIGINAIS
   // ==========================================
